@@ -48,4 +48,35 @@ export default class RedisClient {
         }
         await this.client.del(id)
     }
+
+    async getInTable(key : string, id : string) : Promise<string> {
+        if (!this.connected) {
+            this.connect()
+        }
+       const data =  await this.client.hGet(key, id)
+       return data 
+
+    }
+
+    async setInTable(table : string, id : string, data : string) {
+        if (!this.connected) {
+            this.connect()
+        }
+        await this.client.hSet(table, id, data) 
+    }
+
+    async getAllInTable(table : string) : Promise<Array<string>> {
+        if (!this.connected) {
+            this.connect()
+        }
+        const data = await this.client.hVals(table)
+        return data 
+    }
+
+    async deleteKeyInTable(table : string, id : string) {
+        if (!this.connected) {
+            this.connect()
+        }
+        await this.client.hDel(table, id)
+    }
 }
