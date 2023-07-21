@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Task } from "../../typing";
 
 interface AddItemProps {
-    onAdd : (task : Omit<Task, "id">) => void 
+    onAdd : (task : Task) => void 
 }
 const AddItem : React.FC<AddItemProps> = (props : AddItemProps) => {
     const titleRef = useRef(null)

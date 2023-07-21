@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
+import taskService from "../../services/taskService";
 import TaskList from "../presentational/ViewTask";
 
 const TaskContainer  : React.FC<any> = (props : any) => {
@@ -14,7 +15,11 @@ const TaskContainer  : React.FC<any> = (props : any) => {
     }, [fetchTasks])
     return (
         <Fragment>
-            <TaskList todos = {tasks}></TaskList>
+            <TaskList todos = {tasks} onAddTask = {async (task) => {
+                await taskService().saveTask(task)
+            }} onDeleteTask = {async(id : string) => {
+                await taskService().deleteTask(id)
+            }}></TaskList>
         </Fragment>
     )
 }
